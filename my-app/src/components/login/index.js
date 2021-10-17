@@ -37,7 +37,7 @@ export function Login() {
           className={styles.asyncButton}
           onClick={handleLogin}
         >
-          Login
+          Login MAgic
         </button>
       </div>
     </div>
