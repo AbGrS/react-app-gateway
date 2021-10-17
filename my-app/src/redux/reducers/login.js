@@ -17,8 +17,11 @@ const userSlice = createSlice({
 			state.isLoading = true;
 		},
 		[login.fulfilled]: (state, action) => {
-			const {data} = action.payload;
-			state.value= data;
+			debugger
+			const abc = action.payload.data;
+			state.value= abc;
+			alert(abc)
+			console.log(abc)
 		},
 		[login.rejected]: (state, action) => {
 			state.isLoading = false;

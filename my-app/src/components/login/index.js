@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../redux/actions';
-import styles from './Counter.module.css';
+import styles from './login.module.css';
 
 export function Login() {
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
-
-  const incrementValue = Number(incrementAmount) || 0;
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const handleLogin = ()=>{
-      alert(email);
-      alert(password);
-      dispatch(login(incrementValue))
+      dispatch(login({email, password}))
   }
 
   const handleEmailInput = (e)=>{

@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchCount } from './counterAPI';
+import { handleLogin } from './loginApis';
 export const login = createAsyncThunk(
-    'counter/fetchCount',
-    async ({amount}, {rejectWithValue}) => {
+    'user/login',
+    async ({email, password}, {rejectWithValue}) => {
         try {
-			return await fetchCount(amount);
+			return await handleLogin({email, password});
 		} catch (err) {
 			return rejectWithValue(err);
 		}
