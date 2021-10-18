@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// const token = localStorage.getItem('token');
-
 export function handleLogin({email, password}) {
   return axios.post('https://cors-anywhere.herokuapp.com/'+'http://35.207.169.147/auth', {email, password})
   return axios.get('https://api.github.com/users/hadley/orgs');
@@ -16,7 +14,6 @@ export function handleLogin({email, password}) {
 }
 
 export function fetchResults(token) {
-  debugger;
   axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
   return axios.get('https://cors-anywhere.herokuapp.com/'+'http://35.207.169.147/results',)
 }
