@@ -1,0 +1,31 @@
+.top {
+  margin-top: 50px;
+}
+.column {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .column > div {
+      /* padding: 20px; */
+  }
+  .column > div > label, span {
+    padding:20px;
+    display:inline-block;
+    min-width: 100px;
+    border: 2px solid;
+    border-bottom: 0;
+    border-right: 0;
+  }
+
+  .column> div > span:last-child {
+    border-right: 2px solid;
+  }
+  .column> div:last-child > span {
+    border-bottom: 2px solid;
+  }
+
+  .column> div:last-child > label {
+    border-bottom: 2px solid;
+  }
