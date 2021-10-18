@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router';
 import { login, fetchResults } from '../../redux/actions';
 import styles from './login.module.css';
 
@@ -21,8 +22,9 @@ export function Login() {
       setPassword(e.target.value)
   }
 
-  if(user.tokenReceived){
-    dispatch(fetchResults(user.tokenReceived))
+  debugger;
+  if(user.tokenReceived && !user.tokenExpired){
+    return <Redirect to="/dashboard"/>
   }
 
   return (
@@ -38,6 +40,7 @@ export function Login() {
         >
           Login
         </button>
+        {user.error? "Some Error occurred. Please try again": ''}
       </div>
     </div>
   );
