@@ -21,6 +21,8 @@ const userSlice = createSlice({
 		[login.fulfilled]: (state, action) => {
 			localStorage.setItem('token', action.payload.data.token);
 			state.tokenReceived = action.payload.data.token;
+			state.results = [];
+			state.tokenExpired = false;
 		},
 		[login.rejected]: (state, action) => {
 			state.isLoading = false;
@@ -31,11 +33,10 @@ const userSlice = createSlice({
 			state.error = false;
 		},
 		[fetchResults.rejected]: (state, action) => {
-			state.tokenExpired = true;
-			//This should ideally be following
-			// if(action.payload.response.data.error === 'Access denied'){
-			// 	state.tokenExpired = true;
-			// }
+			// state.tokenExpired = true;
+			if(action.payload.response.data.error === 'Access denied'){
+				state.tokenExpired = true;
+			}
 		}
 	},
 });

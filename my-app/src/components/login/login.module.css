@@ -2,6 +2,12 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-top: 100px;
+}
+
+.row > input{
+  margin: 5px;
+  padding: 10px
 }
 
 .button {
@@ -29,12 +35,12 @@
   background-color: rgba(112, 76, 182, 0.2);
 }
 
-.asyncButton {
+.loginButton {
   composes: button;
   position: relative;
 }
 
-.asyncButton:after {
+.loginButton:after {
   content: '';
   background-color: rgba(112, 76, 182, 0.15);
   display: block;
@@ -47,7 +53,7 @@
   transition: width 1s linear, opacity 0.5s ease 1s;
 }
 
-.asyncButton:active:after {
+.loginButton:active:after {
   width: 0%;
   opacity: 1;
   transition: 0s;

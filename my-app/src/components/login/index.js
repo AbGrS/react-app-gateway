@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
-import { login, fetchResults } from '../../redux/actions';
+import { login } from '../../redux/actions';
 import styles from './login.module.css';
 
 export function Login() {
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] =useState('');
+  const [password, setPassword] = useState('');
   const handleLogin = ()=>{
       dispatch(login({email, password}))
   }
@@ -22,25 +22,24 @@ export function Login() {
       setPassword(e.target.value)
   }
 
-  debugger;
-  if(user.tokenReceived && !user.tokenExpired){
+  if((user.tokenReceived || localStorage.getItem('token'))&& !user.tokenExpired){
     return <Redirect to="/dashboard"/>
   }
 
   return (
     <div>
-      <div className={styles.row} style={{marginTop: '100px'}}>
-        <input type='text' style={{margin: '5px', padding: '10px'}} placeholder="email" onChange={handleEmailInput}/>
+      <div className={styles.row}>
+        <input type='text' placeholder="email" onChange={handleEmailInput}/>
    
-        <input type='text' style={{margin: '5px', padding: '10px'}} placeholder="password" onChange={handlePasswordInput}/>
+        <input type='text' placeholder="password" onChange={handlePasswordInput}/>
 
         <button
-          className={styles.asyncButton}
+          className={styles.loginButton}
           onClick={handleLogin}
         >
           Login
         </button>
-        {user.error? "Some Error occurred. Please try again": ''}
+        {user.error && "Some Error occurred. Please try again"}
       </div>
     </div>
   );

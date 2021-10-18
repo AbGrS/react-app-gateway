@@ -3,46 +3,45 @@ import { useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { fetchResults } from '../../redux/actions';
 import styles from './dashboard.module.css'; 
-// import { mockResults } from './constants';
+// import the interval which the user likes to see the updates in
+import {HALF_MINUTE} from './constants';
 
+let timeInterval=0;
 export function Dashboard() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state);
-  
-  let { results, tokenExpired }  = user;
+
+  const { results, tokenExpired }  = user;
   const savedToken = localStorage.getItem('token');
     // Filter the resuts based on the events that are finished and then sort.
     // TODO: move this logic into a helper method.
     let filteredResults = results.filter(eachData=> eachData.event === 'finish');
     filteredResults = filteredResults.sort((a, b)=> a.time - b.time);
-    let timeInterval=0;
+   
 
-   // results = mockResults;
-  // This should be ideally in appContants file. But since we don't have too many contants, keeping it here
-  const ONE_MINUTE = 1*60*1000; 
+   
     // TODO: implement websocket if the server pushes notification in realtime
   const pollResults = ()=>{
+    clearInterval(timeInterval) 
     dispatch(fetchResults(savedToken));//Dispatch once and then set the intrval
     timeInterval= setInterval(()=>{
       dispatch(fetchResults(savedToken))
-    }, ONE_MINUTE)
+    }, HALF_MINUTE)
   }  
   
-   // useEffect(
-	// 	() =>{
-  //    if(!results.length){
-  //       pollResults()
-  //    }
-  //   }, []);
+   useEffect(
+		() =>{
+      pollResults()
+      //Clear the polling upon component unmount
+     return (()=>clearInterval(timeInterval))
+    }, []);
 
 
   if(tokenExpired || !savedToken){
-    clearInterval(timeInterval) //Clear the polling
     return <Redirect to='login'/>
   }
 
   if(!results.length){
-    pollResults()
     return "Fetching Results..."
   }
 
@@ -53,20 +52,23 @@ export function Dashboard() {
 
         <div className={styles.column} >
           <div>
-            <span>No</span>
+            <span>No.</span>
             <span>Horse</span>
             <span>Time</span>
             <span>Event</span>
           </div>
             {
-              filteredResults.map(k=>{
-                return <div key={k.horse.id}>
-                  <span>{k.horse.id}</span>
-                  <span>{k.horse.name}</span>
-                  <span>{`${k.time/1000}s`}</span>
-                  <span>{k.event}</span>
+              filteredResults.map(res=>{
+                return <div key={res.horse.id+res.time}>
+                  <span>{res.horse.id}</span>
+                  <span>{res.horse.name}</span>
+                  <span>{`${res.time/1000}s`}</span>
+                  <span>{res.event}</span>
                 </div>
               })
+            }
+            {
+              !filteredResults.length && "The race has just begin!"
             }
        </div>
        
