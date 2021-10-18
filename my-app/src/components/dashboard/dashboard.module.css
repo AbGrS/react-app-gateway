@@ -6,17 +6,18 @@
     align-items: center;
     flex-direction: column;
   }
-
-  .column > div {
-      /* padding: 20px; */
-  }
-  .column > div > label, span {
+  .column > div > span {
     padding:20px;
     display:inline-block;
     min-width: 100px;
     border: 2px solid;
     border-bottom: 0;
     border-right: 0;
+    font-weight: 100;
+  }
+
+  .column> div:first-child > span{
+    font-weight: 500;
   }
 
   .column> div > span:last-child {
@@ -24,8 +25,5 @@
   }
   .column> div:last-child > span {
     border-bottom: 2px solid;
-  }
-
-  .column> div:last-child > label {
-    border-bottom: 2px solid;
+    /* font-weight: 400; */
   }

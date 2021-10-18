@@ -40,7 +40,6 @@ function App() {
                   }></Route>
               </Switch>
             </HashRouter>
-       {/* <Login /> */}
     </div>
   );
 }

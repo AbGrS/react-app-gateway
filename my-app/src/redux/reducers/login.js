@@ -6,6 +6,7 @@ import {
 
 const initialState = {
 	isLoading: true,
+	results: [],
 };
 
 const userSlice = createSlice({
@@ -26,13 +27,15 @@ const userSlice = createSlice({
 			state.error = true;
 		},
 		[fetchResults.fulfilled]: (state, action) => {
-			state.results = action.payload.data;
+			state.results.push(action.payload.data);
 			state.error = false;
 		},
 		[fetchResults.rejected]: (state, action) => {
-			if(action.payload.response.data.error === 'Access denied'){
-				state.tokenExpired = true;
-			}
+			state.tokenExpired = true;
+			//This should ideally be following
+			// if(action.payload.response.data.error === 'Access denied'){
+			// 	state.tokenExpired = true;
+			// }
 		}
 	},
 });
