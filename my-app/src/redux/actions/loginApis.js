@@ -1,7 +1,10 @@
 import axios from 'axios';
+
+// const token = localStorage.getItem('token');
+
 export function handleLogin({email, password}) {
-  debugger;
-  return axios.post('http://35.207.169.147/', JSON.stringify({email, password}))
+  return axios.post('https://cors-anywhere.herokuapp.com/'+'http://35.207.169.147/auth', {email, password})
+  return axios.get('https://api.github.com/users/hadley/orgs');
   return fetch('https://api.github.com/users/hadley/orgs', {
     method: 'GET',
     headers: {
@@ -10,5 +13,12 @@ export function handleLogin({email, password}) {
     // body: JSON.stringify(data)
    // body: JSON.stringify({email, password}) // body data type must match "Content-Type" header
   })
-}//http://35.207.169.147/
+}
+
+export function fetchResults(token) {
+  debugger;
+  axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
+  return axios.get('https://cors-anywhere.herokuapp.com/'+'http://35.207.169.147/results',)
+}
+
 

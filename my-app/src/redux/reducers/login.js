@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-	login
+	login,
+	fetchResults,
 } from '../actions';
 
 const initialState = {
@@ -17,17 +18,17 @@ const userSlice = createSlice({
 			state.isLoading = true;
 		},
 		[login.fulfilled]: (state, action) => {
-			debugger
-			const abc = action.payload.data;
-			state.value= abc;
-			alert(abc)
-			console.log(abc)
+			
+			localStorage.setItem('token', action.payload.data.token);
+			state.tokenReceived = action.payload.data.token;
 		},
 		[login.rejected]: (state, action) => {
 			state.isLoading = false;
 			state.error = action.payload.error;
 		},
-
+		[fetchResults.fulfilled]: (state, action) => {
+			state.results = action.payload.data;
+		}
 	},
 });
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../redux/actions';
+import { login, fetchResults } from '../../redux/actions';
 import styles from './login.module.css';
 
 export function Login() {
@@ -19,6 +19,10 @@ export function Login() {
 
   const handlePasswordInput = (e)=>{
       setPassword(e.target.value)
+  }
+
+  if(user.tokenReceived){
+    dispatch(fetchResults(user.tokenReceived))
   }
 
   return (
