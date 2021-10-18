@@ -14,7 +14,7 @@ export function Dashboard() {
   const history = useHistory();
   const { user } = useSelector((state) => state);
 
-  const { results, tokenExpired }  = user;
+  const { results }  = user;
   const savedToken = localStorage.getItem('token');
   
     // Filter the resuts based on the events that are finished and then sort.
@@ -41,13 +41,13 @@ export function Dashboard() {
 
   useEffect(
     () =>{
-      if(tokenExpired || !savedToken){
+      if(!savedToken){
         alert(EXPIRED_SESSION_MESSAGE);
         history.push(routes.LOGIN)
       }
-    }, [tokenExpired, savedToken]);
+    }, [savedToken]);
 
-  if(tokenExpired || !savedToken){
+  if(!savedToken){
     return true;
   }
 

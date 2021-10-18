@@ -31,8 +31,7 @@ class LocalStorageMock {
 
 const params = {
 	initialState: {
-	    results: [],
-        tokenExpired: false
+	    results: []
 	}
 };
 describe('Dashboard Tests', () => {

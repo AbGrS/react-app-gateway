@@ -23,7 +23,7 @@ export function Login() {
       setPassword(e.target.value)
   }
 
-  if((user.tokenReceived || localStorage.getItem('token'))&& !user.tokenExpired){
+  if((user.tokenReceived || localStorage.getItem('token'))){
     return <Redirect to={routes.DASHBOARD}/>
   }
 
