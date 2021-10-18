@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { fetchResults } from '../../redux/actions';
 import styles from './dashboard.module.css'; 
-import { mockResults } from './constants';
+// import { mockResults } from './constants';
 
 export function Dashboard() {
   const dispatch = useDispatch();
