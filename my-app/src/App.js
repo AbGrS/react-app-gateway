@@ -3,6 +3,7 @@ import { Login } from './components/login';
 import { Dashboard } from './components/dashboard';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
+import { routes } from './routes';
 
 const authenticated = localStorage.getItem('token');
 
@@ -11,20 +12,20 @@ function App() {
     <div className="App">
             <HashRouter>
               <Switch>
-              <Route path="/" 
+              <Route path={routes.HOME} 
                   exact
                   render={(props) =>
                     (
                       <Redirect
                         to={{
-                          pathname: authenticated? '/dashboard' : '/login',
+                          pathname: authenticated? routes.DASHBOARD : routes.LOGIN,
                           state: { from: props.location },
                         }}
                       />
                     )
                   }></Route>
-                <Route exact path="/login" component={Login}></Route>
-                <Route path="/dashboard" 
+                <Route exact path={routes.LOGIN} component={Login}></Route>
+                <Route path={routes.DASHBOARD}
                   exact
                   render={(props) =>
                     authenticated ? (
@@ -32,7 +33,7 @@ function App() {
                     ) : (
                       <Redirect
                         to={{
-                          pathname: '/login',
+                          pathname: routes.LOGIN,
                           state: { from: props.location },
                         }}
                       />

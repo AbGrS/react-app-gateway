@@ -1,17 +1,19 @@
 import axios from 'axios';
 
+// To navigate around CORS error, I hosted a proxy on Heroku server
+const PROXY = `https://sheltered-mountain-74311.herokuapp.com/`;
+const BASE_URL =  `http://35.207.169.147/`;
 function addProxy(url){
-  // To navigate around CORS error, I hosted a proxy on Heroku server
-  return `https://sheltered-mountain-74311.herokuapp.com/${url}`
+  return `${PROXY}${BASE_URL}${url}`
 }
 export function handleLogin({email, password}) {
-  return axios.post(addProxy('http://35.207.169.147/auth'), {email, password})
+  return axios.post(addProxy('auth'), {email, password})
   
 }
 
 export function fetchResults(token) {
   axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
-  return axios.get(addProxy('http://35.207.169.147/results'))
+  return axios.get(addProxy('results'))
 }
 
 

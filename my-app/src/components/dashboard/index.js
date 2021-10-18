@@ -4,20 +4,23 @@ import { Redirect } from 'react-router';
 import { fetchResults } from '../../redux/actions';
 import styles from './dashboard.module.css'; 
 // import the interval which the user likes to see the updates in
-import {HALF_MINUTE} from './constants';
+import {HALF_MINUTE, EXPIRED_SESSION_MESSAGE} from './constants';
+import {routes} from '../../routes';
+import { useHistory } from 'react-router-dom';
 
 let timeInterval=0;
 export function Dashboard() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { user } = useSelector((state) => state);
 
   const { results, tokenExpired }  = user;
   const savedToken = localStorage.getItem('token');
+  
     // Filter the resuts based on the events that are finished and then sort.
     // TODO: move this logic into a helper method.
     let filteredResults = results.filter(eachData=> eachData.event === 'finish');
     filteredResults = filteredResults.sort((a, b)=> a.time - b.time);
-   
 
    
     // TODO: implement websocket if the server pushes notification in realtime
@@ -36,9 +39,16 @@ export function Dashboard() {
      return (()=>clearInterval(timeInterval))
     }, []);
 
+  useEffect(
+    () =>{
+      if(tokenExpired || !savedToken){
+        alert(EXPIRED_SESSION_MESSAGE);
+        history.push(routes.LOGIN)
+      }
+    }, [tokenExpired, savedToken]);
 
   if(tokenExpired || !savedToken){
-    return <Redirect to='login'/>
+    return true;
   }
 
   if(!results.length){
@@ -47,10 +57,8 @@ export function Dashboard() {
 
   return (
     <div>
-      <div className={styles.top}>
-        <h1>This is Dashboard</h1>
-
         <div className={styles.column} >
+        <h1>Dashboard</h1>
           <div>
             <span>No.</span>
             <span>Horse</span>
@@ -68,11 +76,9 @@ export function Dashboard() {
               })
             }
             {
-              !filteredResults.length && "The race has just begin!"
+              !filteredResults.length && "The race has just begin..."
             }
        </div>
-       
-      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
 import { login } from '../../redux/actions';
 import styles from './login.module.css';
+import {routes} from '../../routes';
 
 export function Login() {
   const { user } = useSelector((state) => state);
@@ -23,15 +24,15 @@ export function Login() {
   }
 
   if((user.tokenReceived || localStorage.getItem('token'))&& !user.tokenExpired){
-    return <Redirect to="/dashboard"/>
+    return <Redirect to={routes.DASHBOARD}/>
   }
 
   return (
     <div>
       <div className={styles.row}>
-        <input type='text' placeholder="email" onChange={handleEmailInput}/>
-   
-        <input type='text' placeholder="password" onChange={handlePasswordInput}/>
+
+          <input type='text' placeholder="Email" onChange={handleEmailInput}/>
+          <input type='password' placeholder="Password" onChange={handlePasswordInput}/>
 
         <button
           className={styles.loginButton}
