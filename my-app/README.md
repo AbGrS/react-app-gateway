@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
+### Steps to run on localhost
+1. yarn
+2. yarn start
+
+### For a quick look, please visit the deployed site at:
+https://wickedrahul.github.io/react-app-gateway/
+
+
 ## Available Scripts
 
 In the project directory, you can run:
