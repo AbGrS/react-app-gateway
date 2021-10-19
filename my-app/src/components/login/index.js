@@ -22,7 +22,7 @@ export function Login() {
     <div>
       <div className={styles.row}>
           <input type='text' placeholder="Email" onChange={(e)=>setEmail(e.target.value)}/>
-          <input type='text' placeholder="Password" onChange={(e)=> setPassword(e.target.value)}/>
+          <input type='password' placeholder="Password" onChange={(e)=> setPassword(e.target.value)}/>
         <button
           className={styles.loginButton}
           onClick={()=>{dispatch(login({email, password}))}}

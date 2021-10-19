@@ -37,6 +37,11 @@ export function Dashboard(props) {
 
   useEffect(
     () =>{
+      // We don't quite need 'savedToken' check here below.
+      // Since savedToken has to be true for the user to land on this page (see App.js)
+      // But I have added for a very specific cenario - The user clears localStorage while being on this page
+      // In that case, we should log them out.
+
       if(!savedToken || tokenExpired){
 
         // Please note that I'm intentionally not doing the following as asked in the assignment.
