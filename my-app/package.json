@@ -1,6 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
+  "homepage": "https://wickedrahul.github.io/react-app-gateway/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
