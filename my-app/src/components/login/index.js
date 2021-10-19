@@ -12,7 +12,9 @@ export function Login() {
   const [email, setEmail] =useState('');
   const [password, setPassword] = useState('');
 
-  if((user.tokenReceived || localStorage.getItem('token')) && !user.tokenExpired){
+  const savedToken = localStorage.getItem('token');
+
+  if(savedToken && !user.tokenExpired){
     return <Redirect to={routes.DASHBOARD}/>
   }
 

@@ -5,8 +5,15 @@ import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import { routes } from './routes';
 
-const authenticated = localStorage.getItem('token');
 
+const isAuthunticated = () => {
+  return localStorage.getItem('token')
+}
+
+const infuseStateIntoProps = (props) =>{
+  props.location.state = {token : isAuthunticated()};
+  return props;
+}
 function App() {
   return (
     <div className="App">
@@ -18,8 +25,8 @@ function App() {
                     (
                       <Redirect
                         to={{
-                          pathname: authenticated? routes.DASHBOARD : routes.LOGIN,
-                          state: { from: props.location },
+                          pathname: isAuthunticated()? routes.DASHBOARD : routes.LOGIN,
+                          state: { token: isAuthunticated()? isAuthunticated(): null   },
                         }}
                       />
                     )
@@ -28,8 +35,8 @@ function App() {
                 <Route path={routes.DASHBOARD}
                   exact
                   render={(props) =>
-                    authenticated ? (
-                      <Dashboard {...props} />
+                    isAuthunticated() ? (
+                      <Dashboard {...infuseStateIntoProps(props)} />
                     ) : (
                       <Redirect
                         to={{

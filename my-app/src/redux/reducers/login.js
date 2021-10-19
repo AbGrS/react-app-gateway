@@ -36,6 +36,8 @@ const userSlice = createSlice({
 			if(action.payload.response.data.error === 'Access denied'){
 				localStorage.removeItem('token');
 				state.tokenExpired = true;
+			}else{
+				state.errorInFetchingResults = true
 			}
 		}
 	},
