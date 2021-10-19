@@ -11,32 +11,19 @@ export function Login() {
 
   const [email, setEmail] =useState('');
   const [password, setPassword] = useState('');
-  const handleLogin = ()=>{
-      dispatch(login({email, password}))
-  }
 
-  const handleEmailInput = (e)=>{
-      setEmail(e.target.value)
-  }
-
-  const handlePasswordInput = (e)=>{
-      setPassword(e.target.value)
-  }
-
-  if((user.tokenReceived || localStorage.getItem('token'))){
+  if((user.tokenReceived || localStorage.getItem('token')) && !user.tokenExpired){
     return <Redirect to={routes.DASHBOARD}/>
   }
 
   return (
     <div>
       <div className={styles.row}>
-
-          <input type='text' placeholder="Email" onChange={handleEmailInput}/>
-          <input type='password' placeholder="Password" onChange={handlePasswordInput}/>
-
+          <input type='text' placeholder="Email" onChange={(e)=>setEmail(e.target.value)}/>
+          <input type='text' placeholder="Password" onChange={(e)=> setPassword(e.target.value)}/>
         <button
           className={styles.loginButton}
-          onClick={handleLogin}
+          onClick={()=>{dispatch(login({email, password}))}}
         >
           Login
         </button>

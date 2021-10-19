@@ -21,6 +21,7 @@ const userSlice = createSlice({
 		[login.fulfilled]: (state, action) => {
 			localStorage.setItem('token', action.payload.data.token);
 			state.tokenReceived = action.payload.data.token;
+			state.tokenExpired = false;
 			state.results = [];
 		},
 		[login.rejected]: (state, action) => {
@@ -34,6 +35,7 @@ const userSlice = createSlice({
 		[fetchResults.rejected]: (state, action) => {
 			if(action.payload.response.data.error === 'Access denied'){
 				localStorage.removeItem('token');
+				state.tokenExpired = true;
 			}
 		}
 	},
