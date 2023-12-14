@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 2. yarn start
 
 ### For a quick look, please visit the deployed site at:
-https://wickedrahul.github.io/react-app-gateway/
+https://abgrs.github.io/react-app-gateway/
 
 
 ## Available Scripts
